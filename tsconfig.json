@@ -19,6 +19,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
+
+    //절대경로
+    //"baseUrl": "src"
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
