@@ -1,12 +1,15 @@
 import { Backdrop, CircularProgress } from '@mui/material';
-import { useReservations, useUpdateReservation } from '../../react-query/hooks/reservationHook';
+import {
+  useFetchReservations,
+  useUpdateReservation,
+} from '../../react-query/hooks/reservationHook';
 import { ReservationRequest, ReservationResponse } from '../../models/reservation';
 
 /* ReactQuery staleTime & cacheTime 예제 (reservationHook.ts에서 설정) */
 
 const ReservationPage = () => {
-  const { reservations, isFetching } = useReservations();
-  const updateReservation = useUpdateReservation();
+  const { reservations, isFetching } = useFetchReservations();
+  const { mutate: updateReservation } = useUpdateReservation();
 
   const handleUpdateReservation = (reservation: ReservationResponse) => {
     // 예약가능/예약 중을 toggle , TODO : 개선 필요
@@ -28,10 +31,13 @@ const ReservationPage = () => {
       {reservations &&
         reservations?.map((reservation: ReservationResponse) => {
           return (
-            <div key={reservation.reservationNo}>
-              <span>
-                {reservation.serviceDate} {reservation.status}{' '}
-              </span>
+            <div
+              key={reservation.reservationNo}
+              style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}
+            >
+              <div>{reservation.serviceDate}</div>
+              <div>{reservation.status} </div>
+              <div>{reservation.updatedDatetime}</div>
               <button onClick={() => handleUpdateReservation(reservation)}>Update</button>
             </div>
           );

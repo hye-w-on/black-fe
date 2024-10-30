@@ -1,6 +1,6 @@
 //import styled from "@emotion/styled";
 import { useLocation } from 'react-router-dom';
-import { AnimatePresence, stagger, useAnimate } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import PageTransitionOutlet from './PageTransitionOutlet';
 import HorizonMenu from '../organisms/HorizonMenu';
 import HeaderBar from '../organisms/HeaderBar';

@@ -24,11 +24,10 @@ export const getMyReservationsApi = async (
 export const updateReservationApi = async (
   reservation: ReservationRequest
 ): Promise<RestApiResponse<number>> => {
-  const response = await callRestApi({
+  return await callRestApi({
     serviceName: ServiceName.AQUA_BE,
     method: Method.PUT,
     url: `/reservation`,
     body: reservation,
   });
-  return response;
 };

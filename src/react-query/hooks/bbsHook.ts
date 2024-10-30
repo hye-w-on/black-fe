@@ -1,36 +1,28 @@
-import { QueryClient, useQuery } from '@tanstack/react-query';
+import { QueryClient, keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
 import { queryKeys } from '../queryKeys';
 import { BbsPostCondition } from '../../models/bbs';
-import { getBbsPostsApi } from '../../api/bbsApi';
+import { deleteBbsPostApi, fetchBbsPostsApi } from '../../api/bbsApi';
 
-//Fetch
-export const fetchBbsPosts = async (pageNo: number, condition: BbsPostCondition) => {
-  const pageSize = condition.pageSize ? Number(condition.pageSize) : 10;
-  const bbsPostCondition: BbsPostCondition = {
-    ...condition,
-    pageSize: String(pageSize),
-    start: String(pageSize * (pageNo - 1)),
-  };
-
-  const response = await getBbsPostsApi(bbsPostCondition);
-  return response.data;
-};
 // Fetch Hook
-export const useBbsPosts = (selectedPageNo: number, condition: BbsPostCondition) => {
+export const useBbsPosts = (condition: BbsPostCondition, selectedPageNo: number) => {
   return useQuery({
     queryKey: [queryKeys.posts, selectedPageNo],
     queryFn: () => {
-      return fetchBbsPosts(selectedPageNo, condition);
+      return fetchBbsPostsApi(condition, selectedPageNo);
+    },
+    placeholderData: keepPreviousData,
+    select: (response) => {
+      return response.data;
     },
   });
 };
 
-// Prefetch
+// Prefetch Hook
 export const usePrefetchBbsPosts = (
   queryClient: QueryClient,
+  condition: BbsPostCondition,
   selectedPageNo: number,
-  lastPageNo: number,
-  condition: BbsPostCondition
+  lastPageNo: number
 ) => {
   //console.log('Call usePrefetchBbsPosts:' + ' selectedPageNo:' + selectedPageNo + ' lastPageNo:' + lastPageNo);
 
@@ -43,10 +35,10 @@ export const usePrefetchBbsPosts = (
   //다음페이지 prefetch
   if (nextPage <= lastPageNo) {
     queryClient.prefetchQuery({
-      queryKey: [(queryKeys.posts, nextPage)],
+      queryKey: [queryKeys.posts, nextPage],
       queryFn: () => {
         //console.log('nextPage');
-        return fetchBbsPosts(nextPage, condition);
+        return fetchBbsPostsApi(condition, nextPage);
       },
     });
   }
@@ -56,8 +48,13 @@ export const usePrefetchBbsPosts = (
       queryKey: [queryKeys.posts, prePage],
       queryFn: () => {
         //console.log('prePage');
-        return fetchBbsPosts(prePage, condition);
+        return fetchBbsPostsApi(condition, prePage);
       },
     });
   }
+};
+
+// Delete Mutate Hook
+export const useDeleteBbsPostMutate = () => {
+  return useMutation({ mutationFn: (postNo: string) => deleteBbsPostApi(postNo) });
 };

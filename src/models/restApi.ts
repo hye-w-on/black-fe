@@ -26,7 +26,7 @@ export interface RestApiRequest {
 }
 
 export interface RestApiResponse<T = any> {
-  successOrNot: string;
+  successOrNot: string; //TODO : isSuccess 로 교체
   statusCode: string;
   data?: T;
 }

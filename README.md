@@ -2,6 +2,8 @@
 
 vite-ts sample app
 
+---
+
 ### Components directory tree
 
 - components
@@ -11,6 +13,10 @@ vite-ts sample app
   - `templates` : layout
 - pages
   - domains
+    - BBS list : ReactQuery Pagination Prefetch 사용 예제 (with BE) [x]
+    - Todo list : 불필요한 리렌더링 방지 React.memo 테스트 샘플 [x]
+
+---
 
 ### Dependencies
 

@@ -14,7 +14,7 @@ type SubMenu = {
 
 const mockMenus: Menu[] = [
   {
-    label: 'Bbs',
+    label: 'Bbs-pagination-prefetch',
     path: '/domain/bbs',
   },
   {
@@ -26,8 +26,12 @@ const mockMenus: Menu[] = [
     path: '/domain/feed',
   },
   {
-    label: 'Menu Management',
-    path: '/admin/menu-management',
+    label: 'Todo-React.memo',
+    path: '/domain/todo',
+  },
+  {
+    label: 'Request',
+    path: '/domain/request',
   },
   {
     label: 'Menu Management',

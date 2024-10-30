@@ -6,6 +6,9 @@ import { Suspense, lazy } from 'react';
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Sample from '../pages/error-boundary/ErrorBoundarySample';
 import TodoPage from '../pages/todo/TodoPage';
+import UserSignOnPage from '../pages/sign-on/UserSignOnPage';
+import UiPage from '../pages/ui-sample/UiPage';
+import RequestPage from '../pages/react-hook-form/RequestPage';
 
 //https://github.com/ArnaudBarre/eslint-plugin-react-refresh/issues/25
 const Main = lazy(() => import('../pages/Main'));
@@ -22,6 +25,10 @@ const routes = [
   {
     path: '/',
     element: <Main />,
+  },
+  {
+    path: '/ui',
+    element: <UiPage />,
   },
   {
     path: '/login',
@@ -56,6 +63,14 @@ const routes = [
       {
         path: 'todo',
         element: <TodoPage />,
+      },
+      {
+        path: 'sign-on',
+        element: <UserSignOnPage />,
+      },
+      {
+        path: 'request',
+        element: <RequestPage />,
       },
     ],
   },
